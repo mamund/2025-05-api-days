@@ -1,4 +1,4 @@
-**Prompt Considerations: Generating Node.js API from ALPS**
+# Prompt Considerations: Generating Node.js API from ALPS
 
 Use the following checklist when generating Node.js Express applications from ALPS profiles:
 
