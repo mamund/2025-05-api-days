@@ -1,0 +1,243 @@
+openapi: 3.1.0
+info:
+  title: Task Tracking API
+  version: "1.0.0"
+  description: |
+    This API supports user and task management for a task tracking system.
+    It allows creation, updating, completion, filtering, and deletion of tasks and users.
+servers:
+  - url: https://api.example.com/v1
+tags:
+  - name: user-management
+    description: Operations related to users
+  - name: task-tracking
+    description: Operations related to tasks
+paths:
+  /users:
+    post:
+      summary: Create User
+      tags: [user-management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UserRequest" }
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+
+    get:
+      summary: List Users
+      tags: [user-management]
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/User" }
+
+  /users/{userId}:
+    get:
+      summary: View User Details
+      tags: [user-management]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: User details
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+
+    put:
+      summary: Update User Profile
+      tags: [user-management]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UserRequest" }
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+
+    delete:
+      summary: Delete User
+      tags: [user-management]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "204":
+          description: User deleted
+
+  /tasks:
+    post:
+      summary: Create Task
+      tags: [task-tracking]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TaskRequest" }
+      responses:
+        "201":
+          description: Task created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Task" }
+
+    get:
+      summary: List Tasks
+      tags: [task-tracking]
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema: { type: string }
+        - name: assignedUser
+          in: query
+          required: false
+          schema: { type: string }
+      responses:
+        "200":
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Task" }
+
+  /tasks/{taskId}:
+    get:
+      summary: View Task Details
+      tags: [task-tracking]
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Task details
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Task" }
+
+    put:
+      summary: Update Task
+      tags: [task-tracking]
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TaskRequest" }
+      responses:
+        "200":
+          description: Task updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Task" }
+
+  /tasks/{taskId}/complete:
+    put:
+      summary: Mark Task as Complete
+      tags: [task-tracking]
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Task marked complete
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Task" }
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        userName:
+          type: string
+        userEmail:
+          type: string
+      required: [id, userName, userEmail]
+
+    UserRequest:
+      type: object
+      properties:
+        userName:
+          type: string
+        userEmail:
+          type: string
+      required: [userName, userEmail]
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        dueDate:
+          type: string
+          format: date
+        priority:
+          type: string
+          enum: [low, medium, high]
+        status:
+          type: string
+          enum: [open, in-progress, completed]
+        assignedUser:
+          type: string
+      required: [id, title, status]
+
+    TaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        dueDate:
+          type: string
+          format: date
+        priority:
+          type: string
+          enum: [low, medium, high]
+        status:
+          type: string
+          enum: [open, in-progress, completed]
+        assignedUser:
+          type: string
+      required: [title, status]

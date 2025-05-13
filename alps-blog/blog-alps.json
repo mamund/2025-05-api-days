@@ -1,0 +1,51 @@
+{
+  "$schema": "https://alps-io.github.io/schemas/alps.json",
+  "alps": {
+    "version": "1.0",
+    "descriptor": [
+      {"id": "title", "title": "Title", "def": "https://schema.org/headline"},
+      {"id": "content", "title": "Content", "def": "https://schema.org/articleBody"},
+      {"id": "publicationDate", "title": "Publication Date", "def": "https://schema.org/datePublished"},
+      {"id": "tag", "title": "Tag", "def": "https://schema.org/keywords"},
+      {"id": "author", "title": "Author", "def": "https://schema.org/author"},
+      {"id": "commentContent", "title": "Comment Content", "def": "https://schema.org/commentText"},
+      {"id": "commenter", "title": "Commenter", "def": "https://schema.org/creator"},
+      {"id": "Article", "title": "Blog Article", "tag": "content-creation", "descriptor": [
+        {"href": "#title"},
+        {"href": "#content"},
+        {"href": "#publicationDate"},
+        {"href": "#tag"},
+        {"href": "#author"},
+        {"href": "#doUpdateArticle"},
+        {"href": "#doPublishArticle"},
+        {"href": "#doDeleteArticle"}
+      ]},
+      {"id": "ArticleList", "title": "List of Articles", "tag": "content-creation", "descriptor": [
+        {"href": "#Article"},
+        {"href": "#goArticle"},
+        {"href": "#doCreateArticle"},
+        {"href": "#doFilterByTag"},
+        {"href": "#doFilterByAuthor"}
+      ]},
+      {"id": "Comment", "title": "Article Comment", "tag": "content-creation", "descriptor": [
+        {"href": "#commentContent"},
+        {"href": "#commenter"},
+        {"href": "#doDeleteComment"}
+      ]},
+      {"id": "CommentList", "title": "List of Comments", "tag": "content-creation", "descriptor": [
+        {"href": "#Comment"},
+        {"href": "#doCreateComment"}
+      ]},
+      {"id": "goArticle", "type": "safe", "title": "View Article Details", "rt": "#Article", "tag": "content-creation"},
+      {"id": "doCreateArticle", "type": "unsafe", "title": "Create Article", "rt": "#ArticleList", "tag": "content-creation"},
+      {"id": "doUpdateArticle", "type": "idempotent", "title": "Update Article", "rt": "#Article", "tag": "content-creation"},
+      {"id": "doPublishArticle", "type": "idempotent", "title": "Publish Article", "rt": "#Article", "tag": "content-creation"},
+      {"id": "doDeleteArticle", "type": "unsafe", "title": "Delete Article", "rt": "#ArticleList", "tag": "content-creation"},
+      {"id": "doFilterByTag", "type": "safe", "title": "Filter Articles by Tag", "rt": "#ArticleList", "tag": "content-creation"},
+      {"id": "doFilterByAuthor", "type": "safe", "title": "Filter Articles by Author", "rt": "#ArticleList", "tag": "content-creation"},
+      {"id": "doCreateComment", "type": "unsafe", "title": "Create Comment", "rt": "#CommentList", "tag": "content-creation"},
+      {"id": "doDeleteComment", "type": "unsafe", "title": "Delete Comment", "rt": "#CommentList", "tag": "content-creation"}
+    ]
+  }
+}
+

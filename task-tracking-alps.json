@@ -1,0 +1,206 @@
+{
+  "$schema": "https://alps-io.github.io/schemas/alps.json",
+  "alps": {
+    "version": "1.0",
+    "descriptor": [
+      {
+        "id": "title",
+        "title": "Title",
+        "def": "https://schema.org/name"
+      },
+      {
+        "id": "description",
+        "title": "Description",
+        "def": "https://schema.org/description"
+      },
+      {
+        "id": "dueDate",
+        "title": "Due Date",
+        "def": "https://schema.org/dueDate"
+      },
+      {
+        "id": "priority",
+        "title": "Priority",
+        "doc": "Task importance level, such as low, medium, high"
+      },
+      {
+        "id": "status",
+        "title": "Status",
+        "doc": "Current state of the task (e.g., open, in-progress, completed)"
+      },
+      {
+        "id": "assignedUser",
+        "title": "Assigned User",
+        "doc": "User to whom the task is assigned"
+      },
+      {
+        "id": "userName",
+        "title": "User Name",
+        "def": "https://schema.org/name"
+      },
+      {
+        "id": "userEmail",
+        "title": "User Email",
+        "def": "https://schema.org/email"
+      },
+      {
+        "id": "User",
+        "title": "User Profile",
+        "tag": "user-management",
+        "descriptor": [
+          {
+            "href": "#userName"
+          },
+          {
+            "href": "#userEmail"
+          },
+          {
+            "href": "#doUpdateUser"
+          },
+          {
+            "href": "#doDeleteUser"
+          }
+        ]
+      },
+      {
+        "id": "UserList",
+        "title": "List of Users",
+        "tag": "user-management",
+        "descriptor": [
+          {
+            "href": "#User"
+          },
+          {
+            "href": "#goUser"
+          },
+          {
+            "href": "#doCreateUser"
+          }
+        ]
+      },
+      {
+        "id": "Task",
+        "title": "Task Detail",
+        "tag": "task-tracking",
+        "descriptor": [
+          {
+            "href": "#title"
+          },
+          {
+            "href": "#description"
+          },
+          {
+            "href": "#dueDate"
+          },
+          {
+            "href": "#priority"
+          },
+          {
+            "href": "#status"
+          },
+          {
+            "href": "#assignedUser"
+          },
+          {
+            "href": "#doUpdateTask"
+          },
+          {
+            "href": "#doMarkComplete"
+          }
+        ]
+      },
+      {
+        "id": "TaskList",
+        "title": "Task List",
+        "tag": "task-tracking",
+        "descriptor": [
+          {
+            "href": "#Task"
+          },
+          {
+            "href": "#goTask"
+          },
+          {
+            "href": "#doCreateTask"
+          },
+          {
+            "href": "#doFilterByStatus"
+          },
+          {
+            "href": "#doFilterByUser"
+          }
+        ]
+      },
+      {
+        "id": "goUser",
+        "type": "safe",
+        "title": "View User Details",
+        "rt": "#User",
+        "tag": "user-management"
+      },
+      {
+        "id": "doCreateUser",
+        "type": "unsafe",
+        "title": "Create User",
+        "rt": "#UserList",
+        "tag": "user-management"
+      },
+      {
+        "id": "doUpdateUser",
+        "type": "idempotent",
+        "title": "Update User Profile",
+        "rt": "#User",
+        "tag": "user-management"
+      },
+      {
+        "id": "doDeleteUser",
+        "type": "unsafe",
+        "title": "Delete User",
+        "rt": "#UserList",
+        "tag": "user-management"
+      },
+      {
+        "id": "goTask",
+        "type": "safe",
+        "title": "View Task Details",
+        "rt": "#Task",
+        "tag": "task-tracking"
+      },
+      {
+        "id": "doCreateTask",
+        "type": "unsafe",
+        "title": "Create Task",
+        "rt": "#TaskList",
+        "tag": "task-tracking"
+      },
+      {
+        "id": "doUpdateTask",
+        "type": "idempotent",
+        "title": "Update Task",
+        "rt": "#Task",
+        "tag": "task-tracking"
+      },
+      {
+        "id": "doMarkComplete",
+        "type": "idempotent",
+        "title": "Mark Task as Complete",
+        "rt": "#Task",
+        "tag": "task-tracking"
+      },
+      {
+        "id": "doFilterByStatus",
+        "type": "safe",
+        "title": "Filter Tasks by Status",
+        "rt": "#TaskList",
+        "tag": "task-tracking"
+      },
+      {
+        "id": "doFilterByUser",
+        "type": "safe",
+        "title": "Filter Tasks by Assigned User",
+        "rt": "#TaskList",
+        "tag": "task-tracking"
+      }
+    ]
+  }
+}
