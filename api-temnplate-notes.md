@@ -1,4 +1,4 @@
-**Template: Converting ALPS to a Node.js API with Hypermedia Support**
+# Template: Converting ALPS to a Node.js API with Hypermedia Support
 
 ---
 
